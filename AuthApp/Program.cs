@@ -15,10 +15,10 @@ namespace AuthApp
     {
         public static void Main(string[] args)
         {
-	    //Extensions.MigrateDatabase();
+	    Console.WriteLine("This is my port number: " + HostPort);
             CreateHostBuilder(args)
 			.Build()
-			.MigrateDatabase()
+			.MigrateDatabase<ApplicationDbContext>()
 			.Run();
         }
 	private static bool IsDevelopment =>
@@ -29,8 +29,10 @@ namespace AuthApp
             		? "5000"
             		: Environment.GetEnvironmentVariable("PORT");
         
-
+	
         public static IHostBuilder CreateHostBuilder(string[] args) =>
+
+	    
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -43,7 +43,7 @@ namespace AuthApp.Areas.Identity
         				var pgPass = pgUserPass.Split(":")[1];
         				var pgHost = pgHostPort.Split(":")[0];
         				var pgPort = pgHostPort.Split(":")[1];
-        				connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};sslmode=Require";
+        				connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};sslmode=Require;Trust Server Certificate=true";
 				}
 				 
 				options.UseNpgsql(connectionString);

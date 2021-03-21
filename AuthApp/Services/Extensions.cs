@@ -11,8 +11,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
  
- 
-
 using AuthApp.Data;
 
 namespace AuthApp
@@ -20,7 +18,7 @@ namespace AuthApp
 public static class Extensions
 {
 
-public static IHost MigrateDatabase(this IHost webHost)
+public static IHost MigrateDatabase<DbContext>(this IHost webHost)
 {
     var serviceScopeFactory =  webHost.Services;
 
