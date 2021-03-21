@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: "username"
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_DB: "todos"
+    ports:
+      - "5432:5432"
+  web-app:
+    build: .
+    depends_on:
+            - db
+    ports: 
+      - "8000:80"

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/ethereum/.dotnet/store/|arch|/|tfm|",
+      "/home/ethereum/.nuget/packages"
+    ]
+  }
+}
