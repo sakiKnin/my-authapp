@@ -1,17 +1,17 @@
 # my-authapp
 AspDotNetCore fullstack application with postgresql database
 
-------------------------------------------------------------
+-------------------------------------------------------------
 
-Runing the app from developmen environment:
+Runing the app from development environment:
 
 Install docker.
 
-export ASPNETCORE_ENVIRONMENT=Development
+echo "ASPNETCORE_ENVIRONMENT=Development" | tee /AuthApp/.env
 
 docker-compose up --build
 
-------------------------------------------------------------
+-------------------------------------------------------------
 
 The app in production:
 

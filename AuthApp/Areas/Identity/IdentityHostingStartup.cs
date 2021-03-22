@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using AuthApp.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +24,7 @@ namespace AuthApp.Areas.Identity
 		services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
 			{
 				var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
+			 
 				string connectionString;
 				 
 				if(env == "Development")

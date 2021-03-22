@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,18 +16,34 @@ namespace AuthApp
     {
         public static void Main(string[] args)
         {
-	    Console.WriteLine("This is my port number: " + HostPort);
+	    var root = Directory.GetCurrentDirectory();
+	    var dotenv = Path.Combine(root, ".env");
+            DotEnv.Load(dotenv);
+	    
             CreateHostBuilder(args)
+			.ConfigureAppConfiguration((hostingContext, config)=>
+			{
+				
+				var env = hostingContext.HostingEnvironment;
+
+				if (env.IsDevelopment() || env.EnvironmentName.ToLower() == "dev")
+                    			config.AddJsonFile("appsettings.dev.json", optional: true, reloadOnChange: true);
+                		else if (env.IsStaging() || env.EnvironmentName.ToLower() == "stage")
+                    			config.AddJsonFile("appsettings.stage.json", optional: true, reloadOnChange: true);                    
+
+                		config.AddEnvironmentVariables();
+
+			})
 			.Build()
 			.MigrateDatabase<ApplicationDbContext>()
 			.Run();
         }
 	private static bool IsDevelopment =>
-        Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+        	Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
 	public static string HostPort =>
         	IsDevelopment
-            		? "5000"
+            		? "80"
             		: Environment.GetEnvironmentVariable("PORT");
         
 	
@@ -36,6 +53,7 @@ namespace AuthApp
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    
 		    webBuilder.UseUrls($"http://+:{HostPort}");
                     webBuilder.UseStartup<Startup>();
                 });
