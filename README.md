@@ -3,11 +3,11 @@ AspDotNetCore fullstack application with postgresql database
 
 -------------------------------------------------------------
 
-Runing the app from development environment:
+Running the app from development environment:
 
 Install docker.
 
-echo "ASPNETCORE_ENVIRONMENT=Development" | tee /AuthApp/.env
+cd AuthApp && echo "ASPNETCORE_ENVIRONMENT=Development" | tee .env && cd ..
 
 docker-compose up --build
 

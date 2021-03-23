@@ -1,2 +1,5 @@
+#.gitignore
+
 AuthApp/obj/
 AuthApp/bin/
+AuthApp/.env/

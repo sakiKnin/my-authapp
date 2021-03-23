@@ -21,19 +21,6 @@ namespace AuthApp
             DotEnv.Load(dotenv);
 	    
             CreateHostBuilder(args)
-			.ConfigureAppConfiguration((hostingContext, config)=>
-			{
-				
-				var env = hostingContext.HostingEnvironment;
-
-				if (env.IsDevelopment() || env.EnvironmentName.ToLower() == "dev")
-                    			config.AddJsonFile("appsettings.dev.json", optional: true, reloadOnChange: true);
-                		else if (env.IsStaging() || env.EnvironmentName.ToLower() == "stage")
-                    			config.AddJsonFile("appsettings.stage.json", optional: true, reloadOnChange: true);                    
-
-                		config.AddEnvironmentVariables();
-
-			})
 			.Build()
 			.MigrateDatabase<ApplicationDbContext>()
 			.Run();

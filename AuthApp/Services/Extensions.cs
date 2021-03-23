@@ -10,33 +10,38 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
- 
+
 using AuthApp.Data;
 
-namespace AuthApp
+namespace AuthApp.Services
 { 
-public static class Extensions
-{
+	public static class Extensions
+	{
 
-public static IHost MigrateDatabase<DbContext>(this IHost webHost)
-{
-    var serviceScopeFactory =  webHost.Services;
+		public static IHost MigrateDatabase<DbContext>(this IHost webHost)
+		{
+    			var serviceScopeFactory =  webHost.Services;
 
-    using(var scope = serviceScopeFactory.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var db = services.GetRequiredService<ApplicationDbContext>();
-            db.Database.Migrate();
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating the database.");
-        }
-    }
-    return webHost;
-}
-}
+    			using(var scope = serviceScopeFactory.CreateScope())
+    			{
+        			var services = scope.ServiceProvider;
+        			try
+        			{
+					SeedData(services.GetRequiredService<ApplicationDbContext>());
+            				 
+       				 }
+        			catch (Exception ex)
+        			{
+            				var logger = services.GetRequiredService<ILogger<Program>>();
+            				logger.LogError(ex, "An error occurred while migrating the database.");
+        			}
+    			}
+    			return webHost;
+		}
+	        public static void SeedData(ApplicationDbContext context)
+		{
+			System.Console.WriteLine("Applying migrations...");
+			context.Database.Migrate();
+		}
+	}
 }
